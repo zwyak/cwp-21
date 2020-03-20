@@ -15,8 +15,10 @@ class CrudService {
 
   async readChunk(options) {
     options = Object.assign({}, this.defaults.readChunk, options);
+
     let limit = options.limit;
     let offset = (options.page - 1) * options.limit;
+    
     return await this.repository.findAll({
       limit: limit,
       offset: offset,
@@ -25,7 +27,22 @@ class CrudService {
     });
   }
 
-  async read(id) {}
+  async read(id) {
+    id = parseInt(id);
+
+    if (isNaN(id)) throw this.errors.invalidId;
+
+    const item = await this.repository.findById(
+      id,
+      { raw: true }
+    );
+
+    if (!item) {
+      throw this.errors.notFound;
+    }
+
+    return item;
+  }
 
   async create(data) {}
 
