@@ -45,6 +45,12 @@ class PropertiesService extends CrudService{
 
     return super.update(data.id, property);
   }
+
+  async delete(id) {
+    return super.delete(id)
+  }
+
+  
 }
 
 module.exports = PropertiesService;
