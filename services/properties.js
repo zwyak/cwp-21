@@ -50,7 +50,29 @@ class PropertiesService extends CrudService{
     return super.delete(id)
   }
 
-  
+  async link(id, agentId){
+    id = parseInt(id);
+    agentId = parseInt(agentId);
+    const property = await this.repository.findById(id);
+
+    if (!property) {
+      throw this.errors.notFound;
+    }
+
+    return super.update(id, {agentId: agentId})
+  }
+
+  async unlink(id){
+    id = parseInt(id);
+
+    const property = await this.repository.findById(id);
+
+    if (!property) {
+      throw this.errors.notFound;
+    }
+
+    return super.update(id, {agentId: null})
+  }
 }
 
 module.exports = PropertiesService;
