@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const schemas = {
-  '/createProperty': Joi.object().keys({
+  'property': Joi.object().keys({
     price: Joi.number().greater(0),
     currency: Joi.string().valid('BYN', 'USD', 'EURO'),
     heading: Joi.string(),

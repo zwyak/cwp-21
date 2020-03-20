@@ -11,8 +11,9 @@ class PropertiesService extends CrudService{
   }
 
   async create(data) {
-    const validationResult = validator.check('createProperty', data);
+    const validationResult = validator.check('property', data);
     let property = {};
+
     if (validationResult.error) {
       throw this.errors.createProperty;
     }else{
@@ -25,6 +26,24 @@ class PropertiesService extends CrudService{
     }
 
     return super.create(property);
+  }
+
+  async update(id, data) {
+    const validationResult = validator.check('property', data);
+    let property = {};
+
+    if (validationResult.error){
+      throw this.errors.updateProperty;
+    }else{
+      property = {
+        heading: data.heading,
+        price: data.price,
+        currency: data.currency,
+        location: data.location
+      };
+    }
+
+    return super.update(data.id, property);
   }
 }
 
