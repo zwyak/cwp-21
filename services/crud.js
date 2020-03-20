@@ -18,7 +18,7 @@ class CrudService {
 
     let limit = options.limit;
     let offset = (options.page - 1) * options.limit;
-    
+
     return await this.repository.findAll({
       limit: limit,
       offset: offset,
@@ -44,11 +44,26 @@ class CrudService {
     return item;
   }
 
-  async create(data) {}
+  async create(data) {
+    const item = await this.repository.create(data);
 
-  async update(id, data) {}
+    return item.get({ plain: true });
+  }
 
-  async delete(id) {}
+  async update(id, data) {
+    await this.repository.update(data, {
+      where: { id: id },
+      limit: 1
+    });
+
+    return this.read(id);
+  }
+
+  async delete(id) {
+    return this.repository.destroy({
+      where: { id: id }
+    });
+  }
 }
 
 module.exports = CrudService;
