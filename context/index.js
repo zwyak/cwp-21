@@ -1,7 +1,6 @@
 module.exports = (Sequelize, config) => {
   const options = {
-    host: config.db.host,
-    dialect: 'mysql',
+    dialect: 'sqlite',
     logging: false,
     define: {
       timestamps: true,
@@ -11,5 +10,4 @@ module.exports = (Sequelize, config) => {
       }
     }
   };
-  ...
 };
