@@ -21,7 +21,8 @@ class PropertiesService extends CrudService{
         heading: data.heading,
         price: data.price,
         currency: data.currency,
-        location: data.location
+        location: data.location,
+        agentId: null
       };
     }
 
@@ -39,7 +40,8 @@ class PropertiesService extends CrudService{
         heading: data.heading,
         price: data.price,
         currency: data.currency,
-        location: data.location
+        location: data.location,
+        agentId: data.agentId
       };
     }
 
