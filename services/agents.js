@@ -39,7 +39,7 @@ class AgentsService extends CrudService{
     let agent = {};
 
     if (validationResult.error){
-      throw this.errors.updateProperty;
+      throw this.errors.updateAgent;
     }else{
       property = {
         name: data.name,
@@ -53,12 +53,40 @@ class AgentsService extends CrudService{
   }
 
   async delete(id) {
-    const properties = await this.propertiesRepository.readByAgentId(id);
+    const properties = await this.propertiesRepository.readByAgentId(id, null);
 
     properties.forEach((item, i) => {
       await this.propertiesRepository.unlink(item.id);
     });
 
     return super.delete(id)
+  }
+
+  async link(id, officeId){
+    id = parseInt(id);
+    officeId = parseInt(agentId);
+    const agent = await this.repository.findById(id);
+
+    if (!agent) {
+      throw this.errors.notFound;
+    }
+
+    return super.update(id, {officeId: agentId})
+  }
+
+  async unlink(id){
+    id = parseInt(id);
+
+    const agent = await this.repository.findById(id);
+
+    if (!agent) {
+      throw this.errors.notFound;
+    }
+
+    return super.update(id, {officeId: null})
+  }
+
+  async readProperties(id, options){
+    const properties = await this.propertiesRepository.readByAgentId(id, options);
   }
 }

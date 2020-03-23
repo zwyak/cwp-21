@@ -10,8 +10,20 @@ class PropertiesService extends CrudService{
     return super.read(id);
   }
 
-  async readByAgentId(id){
-    const properties = await this.repository.findAll({raw: true, where:{agentId: id}});
+  async readByAgentId(id, options){
+    options = Object.assign({}, this.defaults.readChunk, options);
+
+    let limit = options.limit;
+    let offset = (options.page - 1) * options.limit;
+
+    const properties = await this.repository.findAll({
+      limit: limit,
+      offset: offset,
+      order: [[options.orderField, options.order.toUpperCase()]],
+      raw: true,
+      where:{agentId: id}
+    });
+    
     return properties;
   }
 
