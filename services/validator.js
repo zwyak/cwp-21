@@ -7,6 +7,13 @@ const schemas = {
     heading: Joi.string(),
     location: Joi.string()
   }),
+
+  'agent': Joi.object().keys({
+    email: Joi.string().email(),
+    name: Joi.string(),
+    tel: Joi.string(),
+    officeId: Joi.number().integer()
+  }),
 };
 
 exports.check = function (schema, data) {
