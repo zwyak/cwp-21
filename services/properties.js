@@ -10,6 +10,11 @@ class PropertiesService extends CrudService{
     return super.read(id);
   }
 
+  async readByAgentId(id){
+    const properties = await this.repository.findAll({raw: true, where:{agentId: id}});
+    return properties;
+  }
+
   async create(data) {
     const validationResult = validator.check('property', data);
     let property = {};

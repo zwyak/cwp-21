@@ -53,7 +53,7 @@ class AgentsService extends CrudService{
   }
 
   async delete(id) {
-    const properties = await this.propertiesRepository.findAll({raw: true, where:{agentId: id}});
+    const properties = await this.propertiesRepository.readByAgentId(id);
 
     properties.forEach((item, i) => {
       await this.propertiesRepository.unlink(item.id);
