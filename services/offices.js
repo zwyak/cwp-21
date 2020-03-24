@@ -2,6 +2,12 @@ const CrudService = require('./crud');
 const validator = require('./validator');
 
 class OfficesService extends CrudService{
+  constructor(officesRepository, agentsRepository, errors){
+    this.officesRepository = officesRepository;
+    this.agentsRepository = agentsRepository;
+    this.errors = errors;
+  }
+
   async readChunk(options) {
     return await super.readChunk(options);
   }
