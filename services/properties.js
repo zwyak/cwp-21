@@ -3,11 +3,11 @@ const validator = require('./validator');
 
 class PropertiesService extends CrudService{
   async readChunk(options) {
-    return super.readChunk(options);
+    return await super.readChunk(options);
   }
 
   async read(id) {
-    return super.read(id);
+    return await super.read(id);
   }
 
   async readByAgentId(id, options){
@@ -23,7 +23,7 @@ class PropertiesService extends CrudService{
       raw: true,
       where:{agentId: id}
     });
-    
+
     return properties;
   }
 
