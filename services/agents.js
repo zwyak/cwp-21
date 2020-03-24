@@ -9,11 +9,28 @@ class AgentsService extends CrudService{
   }
 
   async readChunk(options) {
-    return super.readChunk(options);
+    return await super.readChunk(options);
   }
 
   async read(id) {
-    return super.read(id);
+    return await super.read(id);
+  }
+
+  async readByOfficeId(id, options){
+    options = Object.assign({}, this.defaults.readChunk, options);
+
+    let limit = options.limit;
+    let offset = (options.page - 1) * options.limit;
+
+    const agents = await this.repository.findAll({
+      limit: limit,
+      offset: offset,
+      order: [[options.orderField, options.order.toUpperCase()]],
+      raw: true,
+      where:{officeId: id}
+    });
+
+    return agents;
   }
 
   async create(data) {
@@ -88,5 +105,6 @@ class AgentsService extends CrudService{
 
   async readProperties(id, options){
     const properties = await this.propertiesRepository.readByAgentId(id, options);
+    return properties;
   }
 }

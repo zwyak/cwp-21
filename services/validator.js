@@ -15,6 +15,12 @@ const schemas = {
     tel: Joi.string(),
     officeId: Joi.number().integer().optional()
   }),
+
+  'office': Joi.object().keys({
+    title: Joi.string(),
+    website: Joi.string(),
+    address: Joi.string()
+  })
 };
 
 exports.check = function (schema, data) {
